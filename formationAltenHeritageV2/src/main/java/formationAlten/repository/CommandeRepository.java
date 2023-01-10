@@ -13,11 +13,11 @@ import org.springframework.data.repository.query.Param;
 
 import formationAlten.entity.Client;
 import formationAlten.entity.Commande;
-	
+
 
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
 	
-	List<Commande> findByNumero(Long numero);
+	//List<Commande> findByNumero(Long numero);
 	List<Commande> findByDate(LocalDate date);
 	List<Commande> findByClient(Client client);
 	
@@ -26,7 +26,7 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 	Optional<Commande> findByCommandeFetchAchats(@Param("id")Long id);
 	
 	@Query("select c from Commande c left join fetch c.client where c.date=:date")
-	Optional<Commande> findByDateCommandeFetchClient(@Param("date")LocalDate date);
+	Optional<Commande> findByDateCommandeFetchClient(@Param("date")LocalDate date); 
 	
 	//@Query("select c from Commande c left join fetch c.client where c.date=:date")
 	//Optional<Commande> findByClientCommandeFetchClient(@Param("date")LocalDate date);
@@ -40,6 +40,7 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 	@Transactional
 	@Query("update Commande c set c.client=null where c.client=:client")
 	void updateByClient(@Param("client") Client client);
+	
 	
 	
 }
