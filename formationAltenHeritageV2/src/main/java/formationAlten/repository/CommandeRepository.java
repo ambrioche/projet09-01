@@ -1,5 +1,6 @@
 package formationAlten.repository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import javax.transaction.Transactional;
 
@@ -15,8 +16,14 @@ import formationAlten.entity.Commande;
 
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
 	
-	@Query("select c from Commande c left join fetch c.achats where c.id=:id") // pas de condition d'égalité avec requête JPQL il automatise grâce à la relation One to Many et Many to One avec le mapped By
+	@Query("select c from Commande c left join fetch c.achats where c.id=:id") // pas de condition d'ï¿½galitï¿½ avec requï¿½te JPQL il automatise grï¿½ce ï¿½ la relation One to Many et Many to One avec le mapped By
 	Optional<Commande> findByCommandeFetchAchats(@Param("id")Long id);
+	
+	@Query("select c from Commande c left join fetch c.client where c.date=:date")
+	Optional<Commande> findByDateCommandeFetchClient(@Param("date")LocalDate date);
+	
+	//@Query("select c from Commande c left join fetch c.client where c.date=:date")
+	//Optional<Commande> findByClientCommandeFetchClient(@Param("date")LocalDate date);
 
 	@Modifying
 	@Transactional
@@ -27,5 +34,6 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 	@Transactional
 	@Query("update Commande c set c.client=null where c.client=:client")
 	void updateByClient(@Param("client") Client client);
+	
 	
 }

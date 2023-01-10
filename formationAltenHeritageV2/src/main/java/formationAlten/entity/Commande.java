@@ -19,16 +19,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formationAlten.jsonview.Views;
+
 @Entity
 @Table(name="orders")
 @SequenceGenerator(name = "seqCommande", sequenceName = "order_seq_id", initialValue = 1, allocationSize = 1)
 public class Commande {
+	@JsonView(Views.Common.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqCommande")
 	@Column(name = "order_number")
 	private Long numero;
+	@JsonView(Views.Common.class)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "order_date")
 	private LocalDate date;
+	@JsonView(Views.CommandeByClient.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_customer_id", foreignKey = @ForeignKey(name = "fk_order_customer_id"))
 	private Client client;
@@ -38,6 +48,7 @@ public class Commande {
 	*	inverseJoinColumns = @JoinColumn(name = "order_details_product_id"), foreignKey = @ForeignKey (name = "order_details_product_id"))
 	*private Set<Produit> achats;
 	*/
+	@JsonView(Views.CommandeWithAchats.class)
 	@OneToMany(mappedBy = "id.commande")
 	private List<Achat> achats;
 	

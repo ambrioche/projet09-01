@@ -15,16 +15,24 @@ import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formationAlten.jsonview.Views;
+
 
 @MappedSuperclass
 public abstract class Compte {
+	@JsonView(Views.Common.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqCompte")
 	private Long id;
+	@JsonView(Views.Common.class)
 	@Column(name = "last_name")
 	private String nom;
+	@JsonView(Views.Common.class)
 	@Column(name = "email")
 	private String email;
+	@JsonView(Views.Common.class)
 	@Embedded
 	private Adresse adresse;
 	

@@ -1,4 +1,4 @@
-package demoMvc.configuration;
+package eshop.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,16 +13,8 @@ import formationAlten.config.JpaConfig;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "demoMvc.controller")
+@ComponentScan(basePackages = "eshop.restcontroller")
 @Import(JpaConfig.class)
 public class WebConfig {
 
-	@Bean
-	public UrlBasedViewResolver viewResolver() {
-		UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
 }
