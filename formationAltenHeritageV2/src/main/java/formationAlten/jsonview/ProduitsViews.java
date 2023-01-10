@@ -1,4 +1,4 @@
-package formationAlten.jsonviews;
+package formationAlten.jsonview;
 
 public class ProduitsViews {
 	

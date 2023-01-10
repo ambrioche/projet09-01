@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import eshop.util.Check;
 import formationAlten.entity.Adresse;
 import formationAlten.entity.Fournisseur;
-import formationAlten.jsonviews.Views;
+import formationAlten.jsonview.Views;
 import formationAlten.service.FournisseurService;
 
 @RestController

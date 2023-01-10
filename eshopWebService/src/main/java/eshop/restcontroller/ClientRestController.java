@@ -1,4 +1,4 @@
-package demoMvc.restcontroller;
+package eshop.restcontroller;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import demoMvc.util.Check;
+import eshop.util.Check;
 import formationAlten.entity.Adresse;
 import formationAlten.entity.Client;
-import formationAlten.jsonviews.Views;
+import formationAlten.jsonview.Views;
 import formationAlten.service.ClientService;
 
 @RestController

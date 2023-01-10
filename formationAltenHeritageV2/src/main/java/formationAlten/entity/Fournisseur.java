@@ -11,7 +11,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import formationAlten.jsonviews.Views;
+import formationAlten.jsonview.Views;
+
 
 
 @Entity

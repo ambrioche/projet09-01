@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import eshop.util.Check;
 import formationAlten.entity.Fournisseur;
 import formationAlten.entity.Produit;
-import formationAlten.jsonviews.ProduitsViews;
+import formationAlten.jsonview.ProduitsViews;
 import formationAlten.service.ProduitService;
 
 @RestController

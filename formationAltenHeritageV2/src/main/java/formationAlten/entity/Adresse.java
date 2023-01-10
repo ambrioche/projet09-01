@@ -5,7 +5,8 @@ import javax.persistence.Embeddable;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import formationAlten.jsonviews.Views;
+import formationAlten.jsonview.Views;
+
 
 @Embeddable
 public class Adresse {
