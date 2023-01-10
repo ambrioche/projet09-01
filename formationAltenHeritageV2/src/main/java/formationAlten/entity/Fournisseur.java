@@ -3,14 +3,15 @@ package formationAlten.entity;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formationAlten.jsonviews.Views;
 
 
 @Entity
@@ -24,12 +25,12 @@ import javax.persistence.Table;
 @Table(name="Supplier")
 @SequenceGenerator(name = "seqCompte", sequenceName = "supplier_id_seq", initialValue = 69, allocationSize = 2)
 public class Fournisseur extends Compte {
+	@JsonView(Views.Common.class)
 	@Column(name = "contact")
 	private String contact;
 	
-	//@OneToOne(mappedBy = "fournisseur")
-	//private Produit produit;
 	
+	@JsonView(Views.FournisseurWithProduits.class)
 	@OneToMany(mappedBy = "fournisseur")
 	private List<Produit> listeProduits;
 	
@@ -62,5 +63,8 @@ public class Fournisseur extends Compte {
 		this.listeProduits = listeProduits;
 	}
 
-	
+	public String getInfos() {
+		return getId() + " " + getContact() + " " + getNom();
+	}
+
 }

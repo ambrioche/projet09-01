@@ -22,14 +22,11 @@ public class FournisseurService {
 	@Autowired
 	private ProduitRepository produitRepo;
 
-	public void create(Fournisseur fournisseur) {
-		if (fournisseur == null) {
-			throw new FournisseurException("fournisseur null");
-		}
-		if (fournisseur.getNom() == null || fournisseur.getNom().isEmpty()) {
-			throw new FournisseurException("nom vide");
-		}
-		fournisseurRepo.save(fournisseur);
+	public Fournisseur create(Fournisseur fournisseur) {
+		checkFournisseurIsNull(fournisseur);
+
+
+		return fournisseurRepo.save(fournisseur);
 	}
 
 	private void checkFournisseurIsNull(Fournisseur fournisseur) {
@@ -42,13 +39,17 @@ public class FournisseurService {
 		if (id == null) {
 			throw new IdException();
 		}
-		return fournisseurRepo.findByIdFetchListeProduits(id).orElseThrow(() -> {
-			throw new FournisseurException("fournisseur inconnu");
-
-		});
-
+		return fournisseurRepo.findById(id).orElseThrow(IdException::new);
 	}
-
+	
+	public Fournisseur getByIdWithProduits(Long id) {
+		if (id == null) {
+			throw new IdException();
+		}
+		return fournisseurRepo.findByIdFetchListeProduits(id).orElseThrow(() -> {
+			throw new FournisseurException("fournisseurr inconnu");
+		});
+	}
 	public void delete(Fournisseur fournisseur) {
 		checkFournisseurIsNull(fournisseur);
 		deleteById(fournisseur.getId());
