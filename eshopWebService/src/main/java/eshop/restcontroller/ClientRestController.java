@@ -80,6 +80,7 @@ public class ClientRestController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
+		
 		clientService.delete(id);
 	}
 	private void setField(Object target, Class modelClass, String fieldName, Object value) {

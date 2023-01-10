@@ -27,9 +27,8 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("delete Commande c where c.client =: client")
-	void deleteByCommade(@Param("client")Client client);
-
+	@Query("delete Commande c where c.client=:client")
+	void deleteByCommande(@Param("client")Client client);
 	@Modifying
 	@Transactional
 	@Query("update Commande c set c.client=null where c.client=:client")
