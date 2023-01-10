@@ -1,9 +1,10 @@
 package eshop.restcontroller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.swing.text.View;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class CommandeRestController {
 	
 	//Recherche par ID
 	@GetMapping("/{id}")
-	@JsonView(Views.Common.class)
+	@JsonView(Views.CommandeWithAchats.class)
 	public Commande getById(@PathVariable Long id) {
 		return commandeService.getById(id);
 	}
@@ -63,12 +64,10 @@ public class CommandeRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("")
 	@JsonView(Views.CommandeWithAchats.class)
-	public Commande create(@Valid @RequestBody CommandeJson commandeJson,AchatJson achatJson, BindingResult br) {
+	public Commande create(@Valid @RequestBody CommandeJson commandeJson, BindingResult br) {
 		Check.checkBindingResulHasError(br);
-		
-		
-		
-		return commandeService.create(commandeJson);
+		return null;
+		//return commandeService.create(commandeJson);
 	}
 	
 	//Delete Commande
