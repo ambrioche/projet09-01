@@ -12,6 +12,7 @@ import formationAlten.entity.Fournisseur;
 import formationAlten.entity.Produit;
 import formationAlten.exception.IdException;
 import formationAlten.exception.ProduitException;
+import formationAlten.repository.AchatRepository;
 import formationAlten.repository.FournisseurRepository;
 import formationAlten.repository.ProduitRepository;
 
@@ -21,15 +22,17 @@ public class ProduitService {
 	private FournisseurRepository fournisseurRepo;
 	@Autowired
 	private ProduitRepository produitRepo;
+	@Autowired
+	private AchatRepository achatRepo;
 
-	public void create(Produit produit) {
+	public Produit create(Produit produit) {
 		if (produit.getLibelle() == null || produit.getLibelle().isEmpty()) {
 			throw new ProduitException("Libelle vide");
 		}
 		if (produit.getDescription() == null || produit.getDescription().isEmpty()) {
 			throw new ProduitException("Description vide");
 		}
-		produitRepo.save(produit);
+		return produitRepo.save(produit);
 	}
 
 	public void checkProduitIsNull(Produit produit) {
@@ -45,6 +48,20 @@ public class ProduitService {
 		return produitRepo.findById(id).orElseThrow(() -> {
 			throw new ProduitException("Produit inconnu");
 		});
+	}
+	
+	public List<Produit> getByLibelle(String libelle) {
+		if (libelle == null) {
+			throw new ProduitException("Nom du produit vide");
+		}
+		return produitRepo.findByLibelleContaining(libelle);
+	}
+	
+	public List<Produit> getByFournisseur(Fournisseur fournisseur) {
+		if (fournisseur == null) {
+			throw new ProduitException("Fournisseur vide");
+		}
+		return produitRepo.findByFournisseur(fournisseur);
 	}
 
 	public void delete(Produit produit) {

@@ -24,6 +24,8 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
 	Page<Produit> findByLibelleContaining(String libelle, Pageable pageable);
 	
+	List<Produit> findByFournisseur(Fournisseur fournisseur);
+	
 //	@Modifying
 //	@Transactional
 //	@Query("update Produit p set p.listeProduits=null where p.listeProduits=:listeProduits")
