@@ -46,6 +46,7 @@ public class JpaConfig {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource);
 		emf.setPackagesToScan("formationAlten.entity");
+		//Ajout EntityJson//  emf.setPackagesToScan("formationAlten.entityJson");
 		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "validate");
