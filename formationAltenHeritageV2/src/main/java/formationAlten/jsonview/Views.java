@@ -1,7 +1,5 @@
 package formationAlten.jsonview;
 
-import formationAlten.jsonview.Views.Common;
-
 public class Views {
 	public static class Common{
 		
@@ -16,6 +14,15 @@ public class Views {
 	}
 
 	public static class FournisseurWithProduits extends Common {
+
+	}
+	public static class FournisseurByNom extends Common {
+
+	}
+	public static class FournisseurByContact extends Common {
+
+	}
+	public static class FournisseurByEmail extends Common {
 
 	}
 	public static class ClienCommande extends Common {

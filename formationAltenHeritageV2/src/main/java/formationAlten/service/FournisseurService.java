@@ -24,7 +24,9 @@ public class FournisseurService {
 
 	public Fournisseur create(Fournisseur fournisseur) {
 		checkFournisseurIsNull(fournisseur);
-
+		if (fournisseur.getNom() == null) {
+			throw new FournisseurException("Fournisseur vide");
+		}
 
 		return fournisseurRepo.save(fournisseur);
 	}
@@ -41,7 +43,30 @@ public class FournisseurService {
 		}
 		return fournisseurRepo.findById(id).orElseThrow(IdException::new);
 	}
-	
+
+	public Fournisseur getByNom(String nom) {
+		if (nom == null) {
+			throw new FournisseurException("Nom null");
+		}
+		return (Fournisseur) fournisseurRepo.findByNom(nom);
+	}
+
+	public Fournisseur getByContact(String contact) {
+		if (contact == null) {
+			throw new FournisseurException("Contact null");
+
+		}
+		return (Fournisseur) fournisseurRepo.findByContact(contact);
+	}
+
+	public Fournisseur getByEmail(String email) {
+		if (email == null) {
+			throw new FournisseurException("Email null");
+
+		}
+		return (Fournisseur) fournisseurRepo.findByEmail(email);
+	}
+
 	public Fournisseur getByIdWithProduits(Long id) {
 		if (id == null) {
 			throw new IdException();
@@ -50,6 +75,7 @@ public class FournisseurService {
 			throw new FournisseurException("fournisseurr inconnu");
 		});
 	}
+
 	public void delete(Fournisseur fournisseur) {
 		checkFournisseurIsNull(fournisseur);
 		deleteById(fournisseur.getId());
@@ -95,12 +121,9 @@ public class FournisseurService {
 		fournisseurEnBase.setNom(fournisseur.getNom() != null ? fournisseur.getNom() : fournisseurEnBase.getNom());
 		fournisseurEnBase.setEmail(fournisseur.getEmail());
 		if (fournisseur.getAdresse() != null) {
-			fournisseurEnBase.setAdresse(
-					new Adresse(
-							fournisseur.getAdresse().getNumero(), 
-							fournisseur.getAdresse().getRue(),
-							fournisseur.getAdresse().getCodePostal(),
-							fournisseur.getAdresse().getVille()));
+			fournisseurEnBase
+					.setAdresse(new Adresse(fournisseur.getAdresse().getNumero(), fournisseur.getAdresse().getRue(),
+							fournisseur.getAdresse().getCodePostal(), fournisseur.getAdresse().getVille()));
 		} else {
 			fournisseurEnBase.setAdresse(null);
 
