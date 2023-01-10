@@ -21,6 +21,9 @@ public class Views {
 	public static class ClienCommande extends Common {
 
 	}
+	public static class AchatJsonProduit extends Common{
+		
+	}
 
 	
 	

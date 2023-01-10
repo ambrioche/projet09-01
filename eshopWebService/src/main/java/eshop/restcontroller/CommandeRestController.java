@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import eshop.entityjson.AchatJson;
+import eshop.entityjson.CommandeJson;
 import eshop.util.Check;
 import formationAlten.entity.Achat;
 import formationAlten.entity.AchatKey;
@@ -48,7 +50,7 @@ public class CommandeRestController {
 	@GetMapping("/{id}")
 	@JsonView(Views.CommandeWithAchats.class)
 	public Commande getById(@PathVariable Long id) {
-		return commandeService.getByIdCommandWithAchats(id);
+		return commandeService.getById(id);
 	}
 	
 	//Recherche par Client
@@ -62,24 +64,12 @@ public class CommandeRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("")
 	@JsonView(Views.CommandeWithAchats.class)
-	public Commande create(@Valid @RequestBody Commande commande, Client client,Produit produit,AchatKey achatKey,Achat achat, BindingResult br) {
+	public Commande create(@Valid @RequestBody CommandeJson commandeJson,AchatJson achatJson, BindingResult br) {
 		Check.checkBindingResulHasError(br);
 		
-//		Client client = clientService.getById(5L) ;
-//		
-//		Commande c = new Commande(LocalDate.now(), client);
-//		
-//		//Produit produit = new Produit("testprod", "testdesc", 33.33); 
-//		Produit produit = produitService.getById(101L);
-//		AchatKey achatKey = new AchatKey(c, produit);
-//		Achat achat = new Achat(achatKey, 2);
-//		List<Achat> achats = new ArrayList<>();
-//		achats.add(achat);
-//		c.setAchats(achats);
-//		commandeService.create(c);
 		
 		
-		return commandeService.create(commande);
+		return commandeService.create(commandeJson);
 	}
 	
 	//Delete Commande
