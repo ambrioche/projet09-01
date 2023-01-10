@@ -30,7 +30,7 @@ import formationAlten.entity.Client;
 import formationAlten.jsonview.Views;
 import formationAlten.service.ClientService;
 
-@RestController
+@RestController 
 @RequestMapping("/api/client")
 public class ClientRestController {
 

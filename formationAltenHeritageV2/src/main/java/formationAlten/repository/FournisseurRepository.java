@@ -17,7 +17,7 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> 
 
 	List<Fournisseur>findByNom(String nom);
 //	Optional<Fournisseur> findById(Long id);
-	List<Fournisseur>findByContatc(String contact);
+	List<Fournisseur>findByContact(String contact);
 	List<Fournisseur>findByEmail(String email);
 	
 	@Query("select f from Fournisseur f left join fetch f.listeProduits where f.id=:id")
