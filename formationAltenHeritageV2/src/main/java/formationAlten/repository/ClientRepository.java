@@ -15,16 +15,13 @@ import formationAlten.entity.Commande;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 	
-	List<Client> findByCivilite(Civilite civilite);
 	
-	List<Client> findByNom(String nom);
+	
+	
 	
 	List<Client> findByNomContaining(String nom);
 	
-	Page<Client> findByNomContaining(String nom, Pageable pageable);
-	
-	List<Client> findByCommandes(Commande commande);
-
+	List<Client> findByEmailContaining(String email);
 	
 	
 	@Query("select c from Client c left join fetch c.commandes where c.id=:id")

@@ -3,13 +3,21 @@ package formationAlten.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formationAlten.jsonviews.Views;
+
 @Embeddable
 public class Adresse {
-	
+	@JsonView(Views.Common.class)
 	private String numero;
+	
 	@Column(name = "street")
+	@JsonView(Views.Common.class)
 	private String rue;
+	@JsonView(Views.Common.class)
 	private String codePostal;
+	@JsonView(Views.Common.class)
 	private String ville;
 	
 	public Adresse () {

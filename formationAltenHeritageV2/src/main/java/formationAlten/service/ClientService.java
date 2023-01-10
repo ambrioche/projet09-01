@@ -13,6 +13,7 @@ import formationAlten.entity.Client;
 import formationAlten.entity.Commande;
 import formationAlten.exception.ClientException;
 import formationAlten.exception.IdException;
+
 import formationAlten.repository.AchatRepository;
 import formationAlten.repository.ClientRepository;
 import formationAlten.repository.CommandeRepository;
@@ -28,9 +29,9 @@ public class ClientService {
 		private AchatRepository achatRepository;
 		
 		
-		public void create(Client client) {
+		public Client create(Client client) {
 			checkClientIsNotNull(client);	
-			clientRepository.save(client);
+			return clientRepository.save(client);
 		}
 		private void checkClientIsNotNull(Client client) {
 			if (client == null) {
@@ -41,15 +42,25 @@ public class ClientService {
 			if(id==null) {
 				throw new IdException();
 			}
-			return clientRepository.findByIdFetchCommandes(id).orElseThrow(()->{throw new ClientException("client not found");});
+			return clientRepository.findById(id).orElseThrow
+					(()->{throw new ClientException("client not found");});
 		}
+	
+		public Client getByIdWithCommande(Long id) {
+			if (id == null) {
+				throw new IdException();
+			}
+			return clientRepository.findByIdFetchCommandes(id).orElseThrow(() -> {
+				throw new ClientException("client not found");
+			});
+		}
+		
+		
 		public void deleteById(Long id) {
-			
-			
 			
 			Client client= getById(id);
 			
-			achatRepository.updateByAchatKeySetAchatKeyToNull((Commande) client.getCommandes());
+			//achatRepository.updateByAchatKeySetAchatKeyToNull((Commande) client.getCommandes());
 			commandeRepository.updateByClient(client);
 		
 			
@@ -65,6 +76,13 @@ public class ClientService {
 		
 		public List<Client> getAll() {
 			return clientRepository.findAll();
+		}
+		public List<Client> getByNom(String nom) {
+			
+			return clientRepository.findByNomContaining(nom);
+		}
+		public List<Client> getByEmail(String email){
+			return clientRepository.findByEmailContaining(email);
 		}
 		
 		public Page<Client> getAll(Pageable pageable) {
@@ -92,7 +110,7 @@ public class ClientService {
 			clientEnBase.setDateInscription(client.getDateInscription());
 			clientEnBase.setEmail(client.getEmail());
 			clientEnBase.setNom(client.getNom());
-			clientEnBase.setPrenom(client.getNom());
+			clientEnBase.setPrenom(client.getPrenom());
 			if(client.getAdresse()!=null) {
 				client.setAdresse(new Adresse(
 						client.getAdresse().getNumero(), 

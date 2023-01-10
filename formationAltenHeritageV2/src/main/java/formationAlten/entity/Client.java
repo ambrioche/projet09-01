@@ -15,6 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formationAlten.jsonviews.Views;
+
 @Entity
 @AttributeOverride(name = "adresse.numero", column = @Column(name="customer_number", length = 50))
 @AttributeOverride(name = "adresse.rue", column = @Column(name="customer_street", length = 255))
@@ -27,14 +33,20 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "seqCompte", sequenceName = "customer_id_seq", initialValue = 1, allocationSize = 1)
 public class Client extends Compte {
 	@Column(name = "first_name")
+	@JsonView(Views.Common.class)
 	private String prenom;
 	@Column(name = "register_date")
+	@JsonView(Views.Common.class)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateInscription;
 	@Column(name = "civility")
 	@Enumerated(EnumType.STRING)
+	@JsonView(Views.Common.class)
 	private Civilite civilite;
+	@JsonView(Views.ClienCommande.class)
 	@OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
 	private List<Commande> commandes;
+
 	
 	public List<Commande> getCommandes() {
 		return commandes;
