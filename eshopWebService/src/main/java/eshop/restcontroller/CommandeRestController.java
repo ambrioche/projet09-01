@@ -1,10 +1,9 @@
 package eshop.restcontroller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.View;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +38,14 @@ public class CommandeRestController {
 	
 	
 	@GetMapping("")
-	@JsonView(Views.CommandeWithAchats.class)
+	@JsonView(Views.Common.class)
 	public List<Commande> getAll(){
 		return commandeService.getAll();
 	}
 	
 	//Recherche par ID
 	@GetMapping("/{id}")
-	@JsonView(Views.CommandeWithAchats.class)
+	@JsonView(Views.Common.class)
 	public Commande getById(@PathVariable Long id) {
 		return commandeService.getByIdCommandWithAchats(id);
 	}
