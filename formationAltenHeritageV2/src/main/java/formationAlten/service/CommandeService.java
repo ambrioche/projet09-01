@@ -2,13 +2,17 @@ package formationAlten.service;
 
 
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 import formationAlten.entity.Commande;
 import formationAlten.exception.CommandeException;
+import formationAlten.exception.DateException;
 import formationAlten.exception.IdException;
 import formationAlten.repository.AchatRepository;
 import formationAlten.repository.ClientRepository;
@@ -23,16 +27,17 @@ public class CommandeService {
 	@Autowired
 	private CommandeRepository commandeRepo;
 	
-	public void create(Commande commande) {
+	public Commande create(Commande commande) {
 		checkCommandeIsNotNull(commande);
-		/*if (commande.getClient() == null){
-			throw new CommandeException("prenom vide");
-		}*/
+		if (commande.getClient() == null){
+			throw new CommandeException("client vide");
+		}
 		if (commande.getAchats() == null) {
 			throw new CommandeException("liste d'achats vide");
 		}
-		commandeRepo.save(commande);
 		achatRepo.saveAll(commande.getAchats());
+		
+		return commandeRepo.save(commande);
 	}
 	
 	private void checkCommandeIsNotNull(Commande commande) {
@@ -50,6 +55,15 @@ public class CommandeService {
 		});
 	}
 	
+	public Commande GetByDateCommandWithClient(LocalDate date) {
+		if(date == null) {
+			throw new DateException("la date est null !");
+		}
+		return commandeRepo.findByDateCommandeFetchClient(date).orElseThrow(() -> {
+			throw new CommandeException("Client null pour la date donnée !");
+		});
+	}
+	
 	private void deleteById(Long id) {
 		Commande commande = getByIdCommandWithAchats(id);
 		achatRepo.updateByAchatKeySetAchatKeyToNull(commande);
@@ -58,6 +72,31 @@ public class CommandeService {
 	
 	public void delete(Long id) {
 		deleteById(id);
+	}
+	
+	public List<Commande> getAll() {
+		return commandeRepo.findAll();
+	}
+
+	public Page<Commande> getAll(Pageable pageable) {
+		if (pageable == null) {
+			throw new CommandeException();
+		}
+		return commandeRepo.findAll(pageable);
+	}
+
+	public Page<Commande> getNextPage(Page<Commande> page) {
+		if (page == null) {
+			throw new CommandeException();
+		}
+		return commandeRepo.findAll(page.nextOrLastPageable());
+	}
+
+	public Page<Commande> getPrevious(Page<Commande> page) {
+		if (page == null) {
+			throw new CommandeException();
+		}
+		return commandeRepo.findAll(page.previousOrFirstPageable());
 	}
 	
 }

@@ -19,7 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+
 import formationAlten.jsonviews.Views;
+
 
 @Entity
 @AttributeOverride(name = "adresse.numero", column = @Column(name="customer_number", length = 50))
@@ -32,17 +34,22 @@ import formationAlten.jsonviews.Views;
 @Table(name="customer")
 @SequenceGenerator(name = "seqCompte", sequenceName = "customer_id_seq", initialValue = 1, allocationSize = 1)
 public class Client extends Compte {
+	@JsonView(Views.Common.class)
 	@Column(name = "first_name")
 	@JsonView(Views.Common.class)
 	private String prenom;
+	@JsonView(Views.Common.class)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "register_date")
 	@JsonView(Views.Common.class)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateInscription;
+	@JsonView(Views.Common.class)
 	@Column(name = "civility")
 	@Enumerated(EnumType.STRING)
 	@JsonView(Views.Common.class)
 	private Civilite civilite;
+	
 	@JsonView(Views.ClienCommande.class)
 	@OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
 	private List<Commande> commandes;

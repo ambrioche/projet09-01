@@ -22,18 +22,23 @@ import formationAlten.jsonviews.Views;
 
 
 
+
 @MappedSuperclass
 public abstract class Compte {
+	@JsonView(Views.Common.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqCompte")
 	@JsonView(Views.Common.class)
 	private Long id;
+	@JsonView(Views.Common.class)
 	@Column(name = "last_name")
 	@JsonView(Views.Common.class)
 	private String nom;
+	@JsonView(Views.Common.class)
 	@Column(name = "email")
 	@JsonView(Views.Common.class)
 	private String email;
+	@JsonView(Views.Common.class)
 	@Embedded
 	@JsonView(Views.Common.class)
 	private Adresse adresse;
