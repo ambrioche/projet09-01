@@ -30,7 +30,7 @@ import formationAlten.entity.Client;
 import formationAlten.jsonview.Views;
 import formationAlten.service.ClientService;
 
-@RestController
+@RestController 
 @RequestMapping("/api/client")
 public class ClientRestController {
 
@@ -80,6 +80,7 @@ public class ClientRestController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
+		
 		clientService.delete(id);
 	}
 	private void setField(Object target, Class modelClass, String fieldName, Object value) {

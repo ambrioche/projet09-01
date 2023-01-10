@@ -12,7 +12,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>demoMvc.configuration.WebConfig</param-value>
+			<param-value>eshop.configuration.WebConfig</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

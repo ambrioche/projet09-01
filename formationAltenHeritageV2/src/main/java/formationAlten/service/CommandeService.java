@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import formationAlten.entity.Commande;
+import formationAlten.entity.Fournisseur;
 import formationAlten.exception.CommandeException;
 import formationAlten.exception.DateException;
 import formationAlten.exception.IdException;
@@ -38,6 +39,15 @@ public class CommandeService {
 		achatRepo.saveAll(commande.getAchats());
 		
 		return commandeRepo.save(commande);
+	}
+	
+	
+	
+	public Commande getById(Long id) {
+		if (id == null) {
+			throw new IdException();
+		}
+		return commandeRepo.findById(id).orElseThrow(IdException::new);
 	}
 	
 	private void checkCommandeIsNotNull(Commande commande) {

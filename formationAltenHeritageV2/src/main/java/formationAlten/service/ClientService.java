@@ -60,9 +60,9 @@ public class ClientService {
 			
 			Client client= getById(id);
 			
-			//achatRepository.updateByAchatKeySetAchatKeyToNull((Commande) client.getCommandes());
-			commandeRepository.updateByClient(client);
-		
+			achatRepository.deleteByAchatKey(((Commande) client.getCommandes()));
+			commandeRepository.deleteByCommande(client);
+			
 			
 			clientRepository.delete(client);
 		}

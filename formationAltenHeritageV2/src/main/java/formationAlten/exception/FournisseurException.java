@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class FournisseurException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+
 	public FournisseurException() {
 
 	}
+
 
 	public FournisseurException(String message) {
 		super(message);
