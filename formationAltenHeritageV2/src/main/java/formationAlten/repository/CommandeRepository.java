@@ -17,7 +17,7 @@ import formationAlten.entity.Commande;
 
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
 	
-	List<Commande> findByNumero(Long numero);
+	
 	List<Commande> findByDate(LocalDate date);
 	List<Commande> findByClient(Client client);
 	

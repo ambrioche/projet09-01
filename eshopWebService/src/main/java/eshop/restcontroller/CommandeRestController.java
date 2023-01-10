@@ -53,23 +53,23 @@ public class CommandeRestController {
 	}
 	
 	//Recherche par Client
-	@GetMapping("/{date}")
+	@GetMapping("/date/{date}")
 	@JsonView(Views.CommandeByClient.class)
 	public Commande getByDate(@PathVariable LocalDate date) {
 		return commandeService.GetByDateCommandWithClient(date);
 	}
 	
-	//post Création
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("")
-	@JsonView(Views.CommandeWithAchats.class)
-	public Commande create(@Valid @RequestBody CommandeJson commandeJson,AchatJson achatJson, BindingResult br) {
-		Check.checkBindingResulHasError(br);
-		
-		
-		
-		return commandeService.create(commandeJson);
-	}
+//	//post Création
+//	@ResponseStatus(HttpStatus.CREATED)
+//	@PostMapping("")
+//	@JsonView(Views.CommandeWithAchats.class)
+//	public Commande create(@Valid @RequestBody CommandeJson commandeJson,AchatJson achatJson, BindingResult br) {
+//		Check.checkBindingResulHasError(br);
+//		
+//		
+//		
+//		//return commandeService.create(commandeJson);
+//	}
 	
 	//Delete Commande
 	@DeleteMapping("/{id}")

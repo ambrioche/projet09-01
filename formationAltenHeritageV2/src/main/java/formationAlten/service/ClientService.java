@@ -59,8 +59,14 @@ public class ClientService {
 		public void deleteById(Long id) {
 			
 			Client client= getById(id);
+			List<Commande> commandes=	client.getCommandes();
+			commandes.forEach(c->{achatRepository.deleteByAchat(c) ;
 			
-			achatRepository.deleteByAchatKey(((Commande) client.getCommandes()));
+			});
+			
+//			achatRepository.deleteByAchat
+//			(commandeRepository.findByClient(client));
+			
 			commandeRepository.deleteByCommande(client);
 			
 			

@@ -1,5 +1,6 @@
 package eshop.restcontroller;
 
+import java.awt.print.Pageable;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BindingResult;
@@ -40,7 +43,7 @@ public class ClientRestController {
 	@GetMapping("")
 	@JsonView(Views.Common.class)
 	public List<Client> getAll(){
-		return clientService.getAll();
+		return clientService.getAll(PageRequest.of(0, 20)).getContent();
 	}
 	@GetMapping("/{id}")
 	@JsonView(Views.Common.class)

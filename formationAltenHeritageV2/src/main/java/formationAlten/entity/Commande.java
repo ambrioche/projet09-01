@@ -32,8 +32,8 @@ public class Commande {
 	@JsonView(Views.Common.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqCommande")
-	@Column(name = "order_number")
-	private Long numero;
+	@Column(name = "order_id")
+	private Long id;
 	@JsonView(Views.Common.class)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "order_date")
@@ -69,12 +69,12 @@ public class Commande {
 		this.achats = achats;
 	}
 
-	public Long getNumero() {
-		return numero;
+	public Long getid() {
+		return id;
 	}
 
-	public void setNumero(Long numero) {
-		this.numero = numero;
+	public void setid(Long id) {
+		this.id = id;
 	}
 
 	public LocalDate getDate() {
@@ -97,7 +97,7 @@ public class Commande {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -110,10 +110,10 @@ public class Commande {
 		if (getClass() != obj.getClass())
 			return false;
 		Commande other = (Commande) obj;
-		if (numero == null) {
-			if (other.numero != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!numero.equals(other.numero))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

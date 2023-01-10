@@ -21,7 +21,7 @@ public interface AchatRepository extends JpaRepository<Achat, AchatKey> {
 	@Modifying
 	@Transactional
 	@Query("delete Achat a where a.id.commande=:commande")
-	void deleteByAchatKey(@Param("commande") Commande commande);
+	void deleteByAchat(@Param("commande") Commande commande);
 
 	
 

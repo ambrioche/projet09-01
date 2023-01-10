@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
 import formationAlten.entity.Commande;
 import formationAlten.entity.Fournisseur;
 import formationAlten.exception.CommandeException;
@@ -47,7 +48,7 @@ public class CommandeService {
 		if (id == null) {
 			throw new IdException();
 		}
-		return commandeRepo.findById(id).orElseThrow(IdException::new);
+		return commandeRepo.findById(id).orElseThrow(CommandeException::new);
 	}
 	
 	private void checkCommandeIsNotNull(Commande commande) {
@@ -73,16 +74,20 @@ public class CommandeService {
 			throw new CommandeException("Client null pour la date donnée !");
 		});
 	}
-	
+	public void delete(Commande commade) {
+		checkCommandeIsNotNull(commade);
+		deleteById(commade.getid());
+	}
 	private void deleteById(Long id) {
 		Commande commande = getByIdCommandWithAchats(id);
-		achatRepo.updateByAchatKeySetAchatKeyToNull(commande);
+		achatRepo.deleteByAchatKey(commande);
 		commandeRepo.delete(commande);
 	}
 	
 	public void delete(Long id) {
 		deleteById(id);
 	}
+	
 	
 	public List<Commande> getAll() {
 		return commandeRepo.findAll();
