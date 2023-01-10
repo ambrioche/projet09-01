@@ -47,6 +47,22 @@ public class FournisseurRestController {
 	public Fournisseur getById(@PathVariable Long id) {
 		return fournisseurService.getById(id);
 	}
+	@GetMapping("/{nom}")
+	@JsonView(Views.FournisseurByNom.class)
+	public Fournisseur getByNom(@PathVariable String nom) {
+		return fournisseurService.getByNom(nom);
+	}
+	@GetMapping("/{contact}")
+	@JsonView(Views.FournisseurByContact.class)
+	public Fournisseur getByContact(@PathVariable String contact) {
+		return fournisseurService.getByContact(contact);
+	}
+	
+	@GetMapping("/{email}")
+	@JsonView(Views.FournisseurByEmail.class)
+	public Fournisseur getByEmail(@PathVariable String email) {
+		return fournisseurService.getByEmail(email);
+	}
 
 	@GetMapping("/{id}/produits")
 	@JsonView(Views.FournisseurWithProduits.class)
@@ -68,6 +84,7 @@ public class FournisseurRestController {
 		fournisseur.setId(id);
 		return fournisseurService.update(fournisseur);
 	}
+	
 
 	@PatchMapping("/{id}")
 	@JsonView(Views.Common.class)
