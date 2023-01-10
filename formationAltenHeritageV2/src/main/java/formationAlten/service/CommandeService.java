@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import formationAlten.entity.Commande;
 import formationAlten.entity.Fournisseur;
+
 import formationAlten.exception.CommandeException;
 import formationAlten.exception.DateException;
 import formationAlten.exception.IdException;
@@ -28,6 +29,8 @@ public class CommandeService {
 	private AchatRepository achatRepo;
 	@Autowired
 	private CommandeRepository commandeRepo;
+//	@Autowired
+//	private AchatJsonRepository achatJsonRepo;
 	
 	public Commande create(Commande commande) {
 		checkCommandeIsNotNull(commande);
@@ -42,13 +45,27 @@ public class CommandeService {
 		return commandeRepo.save(commande);
 	}
 	
+//	public CommandeJson createJson(CommandeJson commandeJson) {
+//		checkCommandeJsonIsNotNull(commandeJson);
+//		if (commandeJson.getClient() == null){
+//			throw new CommandeException("client vide");
+//		}
+//		if (commandeJson.getAchatsJson() == null) {
+//			throw new CommandeException("liste d'achats vide");
+//		}
+//		achatJsonRepo.saveAll(commandeJson.getAchatsJson());
+//		
+//		return commandeRepo.save(commandeJson);
+//	}
 	
 	
-	public Commande getById(Long id) {
-		if (id == null) {
+	public Commande getByNumero(Long numero) {
+		if (numero == null) {
 			throw new IdException();
 		}
+
 		return commandeRepo.findById(id).orElseThrow(CommandeException::new);
+
 	}
 	
 	private void checkCommandeIsNotNull(Commande commande) {
@@ -56,6 +73,12 @@ public class CommandeService {
 			throw new CommandeException("commande null");
 		}
 	} 
+	
+//	private void checkCommandeJsonIsNotNull(CommandeJson commandeJson) {
+//		if (commandeJson == null) {
+//			throw new CommandeException("commandeJson null");
+//		}
+//	} 
 	
 	public Commande getByIdCommandWithAchats(Long id) {
 		if(id == null) {

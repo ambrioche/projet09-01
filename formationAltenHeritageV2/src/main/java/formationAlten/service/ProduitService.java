@@ -65,7 +65,7 @@ public class ProduitService {
 	public void delete(Produit produit) {
 		checkProduitIsNull(produit);
 		produit = getById(produit.getId());
-
+		achatRepo.updateByAchatKeySetAchatKeyToNull(produit);
 	}
 
 	public void delete(Long id) {
@@ -75,6 +75,7 @@ public class ProduitService {
 	private void deleteById(Long id) {
 		Produit produit = getById(id);
 		fournisseurRepo.findByIdFetchListeProduits(id);
+		achatRepo.updateByAchatKeySetAchatKeyToNull(produit);
 		produitRepo.delete(produit);
 
 	}

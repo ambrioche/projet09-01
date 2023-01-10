@@ -1,10 +1,8 @@
 package eshop.restcontroller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.View;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,76 +18,63 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
-import eshop.entityjson.AchatJson;
-import eshop.entityjson.CommandeJson;
 import eshop.util.Check;
-import formationAlten.entity.Achat;
-import formationAlten.entity.AchatKey;
-import formationAlten.entity.Client;
 import formationAlten.entity.Commande;
-import formationAlten.entity.Produit;
+
 import formationAlten.jsonview.Views;
 import formationAlten.service.CommandeService;
 
 @RestController
 @RequestMapping("/api/commande")
 public class CommandeRestController {
-	
+
 	@Autowired
 	private CommandeService commandeService;
-	
-	
+
 	@GetMapping("")
 	@JsonView(Views.Common.class)
-	public List<Commande> getAll(){
+	public List<Commande> getAll() {
+
 		return commandeService.getAll();
 	}
-	
-	//Recherche par ID
+
+	// Recherche par ID
 	@GetMapping("/{id}")
 	@JsonView(Views.CommandeWithAchats.class)
 	public Commande getById(@PathVariable Long id) {
-		return commandeService.getById(id);
+		return commandeService.getByNumero(id);
 	}
-	
-	//Recherche par Client
+
+
+	// Recherche par Client
+
 	@GetMapping("/date/{date}")
 	@JsonView(Views.CommandeByClient.class)
 	public Commande getByDate(@PathVariable LocalDate date) {
 		return commandeService.GetByDateCommandWithClient(date);
 	}
+
 	
 
-//	//post Création
+
+
+	// post Création
 //	@ResponseStatus(HttpStatus.CREATED)
 //	@PostMapping("")
 //	@JsonView(Views.CommandeWithAchats.class)
-//	public Commande create(@Valid @RequestBody CommandeJson commandeJson,AchatJson achatJson, BindingResult br) {
+//	public CommandeJson create(@Valid @RequestBody CommandeJson commandeJson, BindingResult br) {
 //		Check.checkBindingResulHasError(br);
 //		
-//		
-//		
-//		//return commandeService.create(commandeJson);
+//		return commandeService.createJson(commandeJson);
 //	}
 
-	//post Création
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("")
-	@JsonView(Views.CommandeWithAchats.class)
-	public Commande create(@Valid @RequestBody CommandeJson commandeJson, BindingResult br) {
-		Check.checkBindingResulHasError(br);
-		return null;
-		//return commandeService.create(commandeJson);
-	}
+	// Delete Commande
 
-	
-	//Delete Commande
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		commandeService.delete(id);
 	}
-	
-	
+
 }
