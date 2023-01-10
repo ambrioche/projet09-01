@@ -40,6 +40,12 @@ public class ProduitRestController {
 		return produitService.create(produit);
 	}
 	
+	@GetMapping("")
+	@JsonView(ProduitsViews.Common.class)
+	public List<Produit> getAll(){
+		return produitService.getAll();
+	}
+	
 	@PutMapping("/{id}")
 	@JsonView(ProduitsViews.Common.class)
 	public Produit update(@Valid @RequestBody Produit produit, BindingResult br, @PathVariable Long id) {

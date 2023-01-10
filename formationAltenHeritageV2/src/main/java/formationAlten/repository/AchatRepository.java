@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import formationAlten.entity.Achat;
 import formationAlten.entity.AchatKey;
 import formationAlten.entity.Commande;
+import formationAlten.entity.Produit;
 
 public interface AchatRepository extends JpaRepository<Achat, AchatKey> {
 	
@@ -17,6 +18,11 @@ public interface AchatRepository extends JpaRepository<Achat, AchatKey> {
 	@Transactional
 	@Query("update Achat a set a.id.commande=null where a.id.commande=:commande")
 	void updateByAchatKeySetAchatKeyToNull(@Param("commande") Commande commande);
+	
+	@Modifying
+	@Transactional
+	@Query("update Achat a set a.id.produit=null where a.id.produit=:produit")
+	void updateByAchatKeySetAchatKeyToNull(@Param("produit") Produit produit);
 
 	@Modifying
 	@Transactional
